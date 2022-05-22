@@ -31,17 +31,23 @@ print(xkernel)
 print(ykernel)
 
 #convolution
+xconv = []
 for i in range(len(data2)):
-    datakernel = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    row = []
     for j in range(len(data2[i])):
-        for a in range(len(datakernel)):
-            for b in range(len(datakernel[a])):
+        convkernel = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+        for a in range(3):
+            for b in range(3):
                 if i+a-1 < 0 or j+b-1 < 0 or i+a-1 > len(data2) - 1 or j+b-1 > len(data2[i]) - 1:
-                    datakernel[a][b] = 0 
+                    convkernel[a][b] = 0 * xkernel[a][b]
                 else:
-                    datakernel[a][b] = data2[i+a-1][j+b-1]
-        if i == 0 and j == 0:
-            print(datakernel)
+                    convkernel[a][b] = data2[i+a-1][j+b-1] * xkernel[a][b]
+        row.append(np.mean(convkernel))
+    xconv.append(row)
+        # if i == 0 and j == 0:
+        #     print(datakernel)
+
+# print(xconv)
 
 # data4 = np.array(data3,dtype='bool')
 
