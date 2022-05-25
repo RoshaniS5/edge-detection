@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 
 # plt.show()
 
-im = Image.open("./sleep_apnea.jpg").convert('1')
+im = Image.open("./flower.png").convert('1')
 data = np.asarray(im)
 data2 = data.astype(int)
 
@@ -31,7 +31,7 @@ print(xkernel)
 print(ykernel)
 
 #convolution
-xconv = []
+conv = []
 for i in range(len(data2)):
     row = []
     for j in range(len(data2[i])):
@@ -39,21 +39,36 @@ for i in range(len(data2)):
         for a in range(3):
             for b in range(3):
                 if i+a-1 < 0 or j+b-1 < 0 or i+a-1 > len(data2) - 1 or j+b-1 > len(data2[i]) - 1:
-                    convkernel[a][b] = 0 * xkernel[a][b]
+                    convkernel[a][b] = 0
                 else:
                     convkernel[a][b] = data2[i+a-1][j+b-1] * xkernel[a][b]
         row.append(np.mean(convkernel))
-    xconv.append(row)
+    conv.append(row)
         # if i == 0 and j == 0:
         #     print(datakernel)
 
-# print(xconv)
+ydir = np.transpose(data2)
+for i in range(len(ydir)):
+    row = []
+    for j in range(len(ydir[i])):
+        convkernel = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+        for a in range(3):
+            for b in range(3):
+                if i+a-1 < 0 or j+b-1 < 0 or i+a-1 > len(ydir) - 1 or j+b-1 > len(ydir[i]) - 1:
+                    convkernel[a][b] = 0
+                else:
+                    convkernel[a][b] = ydir[i+a-1][j+b-1] * xkernel[a][b]
+        val = np.mean(convkernel)
+        conv[j][i] = np.sqrt(np.power(conv[j][i], 2) + np.power(val, 2))
 
-# data4 = np.array(data3,dtype='bool')
+# print(conv)
+data3 = np.asarray(conv)
 
-# im2 = Image.fromarray(data4)
-# fig, axs = plt.subplots(1)
+data4 = np.array(data3,dtype='bool')
 
-# axs.imshow(im2)
+im2 = Image.fromarray(data4)
+fig, axs = plt.subplots(1)
 
-# plt.show()
+axs.imshow(im2)
+
+plt.show()
