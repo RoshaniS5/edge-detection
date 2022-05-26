@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 
 # plt.show()
 
-im = Image.open("./flower.png").convert('1')
+im = Image.open("./static/flower.png").convert('1')
 data = np.asarray(im)
 data2 = data.astype(int)
 
@@ -27,8 +27,8 @@ xdir = [[1, 0, -1], [2, 0, -2], [1, 0, -1]]
 
 xkernel = np.asarray(xdir)
 ykernel = np.transpose(xkernel)
-print(xkernel)
-print(ykernel)
+# print(xkernel)
+# print(ykernel)
 
 #convolution
 conv = []
@@ -67,8 +67,11 @@ data3 = np.asarray(conv)
 data4 = np.array(data3,dtype='bool')
 
 im2 = Image.fromarray(data4)
-fig, axs = plt.subplots(1)
 
-axs.imshow(im2)
+im2.save("static/edges.png")
 
-plt.show()
+# fig, axs = plt.subplots(1)
+
+# axs.imshow(im2)
+
+# plt.show()
