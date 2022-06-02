@@ -46,9 +46,15 @@ for i in range(len(data2)):
     conv.append(row)
         # if i == 0 and j == 0:
         #     print(datakernel)
+xmat = np.asarray(conv)
+xmat = np.array(xmat, dtype = 'bool')
+imx = Image.fromarray(xmat)
+imx.save("static/xconv.png")
 
 ydir = np.transpose(data2)
+ymat = []
 for i in range(len(ydir)):
+    ymat.append([])
     row = []
     for j in range(len(ydir[i])):
         convkernel = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
@@ -57,10 +63,14 @@ for i in range(len(ydir)):
                 if i+a-1 < 0 or j+b-1 < 0 or i+a-1 > len(ydir) - 1 or j+b-1 > len(ydir[i]) - 1:
                     convkernel[a][b] = 0
                 else:
-                    convkernel[a][b] = ydir[i+a-1][j+b-1] * xkernel[a][b]
+                    convkernel[a][b] = ydir[i+a-1][j+b-1] * ykernel[a][b]
         val = np.mean(convkernel)
+        ymat[i].append(val)
         conv[j][i] = np.sqrt(np.power(conv[j][i], 2) + np.power(val, 2))
-
+ymat = np.asarray(ymat)
+ymat = np.array(ymat, dtype = 'bool')
+imy = Image.fromarray(ymat)
+imy.save("static/yconv.png")
 # print(conv)
 data3 = np.asarray(conv)
 
