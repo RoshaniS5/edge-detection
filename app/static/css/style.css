@@ -1,0 +1,17 @@
+#x {
+    z-index: 1;
+    opacity: 0.2;
+    position: absolute;
+}
+
+#y {
+    opacity: 0.2;
+    z-index: 3;
+    position: relative;
+}
+
+footer {
+    position: sticky;
+    background-color: blueviolet;
+    color: gold;
+}
