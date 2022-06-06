@@ -78,9 +78,15 @@ def sobel(image, save):
         conv.append(row)
             # if i == 0 and j == 0:
             #     print(datakernel)
+    xmat = np.asarray(conv)
+    xmat = np.array(xmat, dtype = 'bool')
+    imx = Image.fromarray(xmat)
+    imx.save("static/" + save+ "xconv.png")
 
     ydir = np.transpose(data2)
+    ymat = []
     for i in range(len(ydir)):
+        ymat.append([])
         row = []
         for j in range(len(ydir[i])):
             convkernel = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
@@ -91,7 +97,12 @@ def sobel(image, save):
                     else:
                         convkernel[a][b] = ydir[i+a-1][j+b-1] * ykernel[a][b]
             val = np.mean(convkernel)
+            ymat[i].append(val)
             conv[j][i] = np.sqrt(np.power(conv[j][i], 2) + np.power(val, 2))
+    ymat = np.asarray(ymat)
+    ymat = np.array(ymat, dtype = 'bool')
+    imy = Image.fromarray(ymat)
+    imy.save("static/" + save + "yconv.png")
 
     # print(conv)
     data3 = np.asarray(conv)
