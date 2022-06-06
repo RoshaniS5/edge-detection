@@ -28,7 +28,7 @@
             original matrix. 
         </p>
         <p>
-          Here, we will walk through edge detection on a simple picture of a flower.
+          Here, we will walk through Sobel edge detection on a simple picture of a flower.
         </p>
       <h4>Original Picture</h4>
         <img src="../static/flower.png"><br/>
@@ -41,12 +41,21 @@
       <h4> Comparison between the two images:</h4>
         <img id="x" src="../static/edgesxconv.png">
         <img id="y" src="../static/edgesyconv.png"><br/>
-        <h4> Final image after the whole sobel edge detection process: </h4>
+        <h4> Final image after the whole Sobel edge detection process: </h4>
         <img id="edges" src="../static/edges.png">
         <p> After both convolutions, we took the magnitude of the values from the x and y directions.</p>
         <p> Here is the formula for the magnitude: </p>
         <p> G = &radic;(G<sub>x</sub><sup>2</sup> + G<sub>y</sub><sup>2</sup>)</p>
         <!--<script src="../static/js/index.js"> </script>-->
+
+        <p> There is also a method called the Canny edge detector. This allows us to obtain cleaner edges. This doesn't do much on simple images (like the flower image in our example). </p>
+        <h4> Gaussian Blur: </h4>
+        <img src="../static/blur.png"><br/>
+        <p> Step one is to perform a Gaussian blur on the image. To do this, you must perform kernel convolution with this matrix as the kernel:</p>
+        <p></p>
+        <h4> After the Sobel process: </h4>
+        <img src="../static/edges2.png">
+        <p> Step two is to perform the Sobel process (as detailed above) on the blurred image. </p>
 
         <form action="/" method="POST" enctype = "multipart/form-data">
             <input type="file" id="myFile" name="filename">
