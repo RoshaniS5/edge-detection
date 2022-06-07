@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="../static/css/style.css">
+        <link rel="stylesheet" href="../static/css/page.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     </head>
     <body>
@@ -34,10 +34,57 @@
         <img src="../static/flower.png"><br/>
       <h4> X convolution </h4>
         <img src="../static/edgesxconv.png"><br/>
-      <p> So, what happened up there is kernel convolution in the x direction. </p>
+      <p> So, what happened up there is kernel convolution in the x direction with this kernel: </p>
+      <table class="center">
+        <tr>
+          <td id="cornerupleft"></td>
+          <td>1</td>
+          <td>0</td>
+          <td>-1</td>
+          <td id="cornerupright"></td>
+        </tr>
+        <tr>
+          <td id="left"></td>
+          <td>2</td>
+          <td>0</td>
+          <td>-2</td>
+          <td id="right"></td>
+        </tr>
+        <tr>
+          <td id="cornerdownleft"></td>
+          <td>1</td>
+          <td>0</td>
+          <td>-1</td>
+          <td id="cornerdownright"></td>
+        </tr>
+      </table>
       <h4> Y convolution </h4>
         <img src="../static/edgesyconv.png"><br/>
-      <p> The picture above depicts what happened after we applied kernel convolution in the y direction. We used the transpose of the original image matrix to make the process easier. </p>
+      <p> The picture above depicts what happened after we applied kernel convolution in the y direction with the transpose of the kernel used for the x direction: </p>
+      <table class="center">
+        <tr>
+          <td id="cornerupleft"></td>
+          <td>1</td>
+          <td>2</td>
+          <td>1</td>
+          <td id="cornerupright"></td>
+        </tr>
+        <tr>
+          <td id="left"></td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td id="right"></td>
+        </tr>
+        <tr>
+          <td id="cornerdownleft"></td>
+          <td>-1</td>
+          <td>-2</td>
+          <td>-1</td>
+          <td id="cornerdownright"></td>
+        </tr>
+      </table>
+      <p>We used the transpose of the original image matrix to make the process easier. </p>
       <h4> Comparison between the two images:</h4>
         <img id="x" src="../static/edgesxconv.png">
         <img id="y" src="../static/edgesyconv.png"><br/>
@@ -46,21 +93,47 @@
         <p> After both convolutions, we took the magnitude of the values from the x and y directions.</p>
         <p> Here is the formula for the magnitude: </p>
         <p> G = &radic;(G<sub>x</sub><sup>2</sup> + G<sub>y</sub><sup>2</sup>)</p>
-        <!--<script src="../static/js/index.js"> </script>-->
 
         <p> There is also a method called the Canny edge detector. This allows us to obtain cleaner edges. This doesn't do much on simple images (like the flower image in our example). </p>
         <h4> Gaussian Blur: </h4>
         <img src="../static/blur.png"><br/>
         <p> Step one is to perform a Gaussian blur on the image. To do this, you must perform kernel convolution with this matrix as the kernel:</p>
-        <p></p>
+        <table class="center">
+          <tr>
+            <td id="cornerupleft"></td>
+            <td>1</td>
+            <td>2</td>
+            <td>1</td>
+            <td id="cornerupright"></td>
+          </tr>
+          <tr>
+            <td id="left"></td>
+            <td>2</td>
+            <td>4</td>
+            <td>2</td>
+            <td id="right"></td>
+          </tr>
+          <tr>
+            <td id="cornerdownleft"></td>
+            <td>1</td>
+            <td>2</td>
+            <td>1</td>
+            <td id="cornerdownright"></td>
+          </tr>
+        </table>
         <h4> After the Sobel process: </h4>
         <img src="../static/edges2.png">
         <p> Step two is to perform the Sobel process (as detailed above) on the blurred image. </p>
+        <p> Step three involves edge thinning. </p>
 
-        <form action="/" method="POST" enctype = "multipart/form-data">
-            <input type="file" id="myFile" name="filename">
-            <input type="submit" id="sub">
+        <!--<script src="../static/js/index.js"> </script>-->
+        <form action="/submit" method="POST" enctype = "multipart/form-data">
+            <input type="file" accept="image/*" id="myFile" name="filename">
+            <input type="submit" value="Submit">
         </form>
+        {% if res == True %}
+        <img src="../static/result.png">
+        {% endif %}
 
 
     </body>
