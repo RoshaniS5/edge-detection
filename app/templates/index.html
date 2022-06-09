@@ -18,23 +18,27 @@
         <p>
             Edge detection can be done in different ways, all with linear algebra at their core. 
             As you know, images can be represented with matrices. These matrices can then be manipulated
-            to do cool things such as edge detection. First, we will introduce a new matrix operation called
-            kernel convolution. Never heard of that? Think it sounds like corn? Are you getting hungry for popcorn?
-            Well, there's no popcorn, but it does involve taking a matrix called a kernel and traversing another matrix, taking
-            same-sized kernels out of that. The kernels of that matrix are centered around the specific element that you're on when 
-            traversing the matrix. The elements of the two kernels are multiplied together. The elements of the resulting kernel
-            are then averaged. This average is then used to replace the specific element of the matrix (the one that isn't the kernel).
-            By replace, we actually mean that you should put it in a separate same-sized matrix so you can preserve the values of the 
-            original matrix. 
+            to do cool things such as edge detection. 
         </p>
         <p>
-          Here, we will walk through Sobel edge detection on a simple picture of a flower.
+            First, we will introduce an operation called
+            kernel convolution. Never heard of that? Think it sounds like kernels of corn? Are you getting hungry for popcorn?
+            Well, there's no popcorn, but it does involve taking a matrix called a kernel and traversing an image matrix, taking
+            same-sized kernels out of that. The kernels of the image matrix are centered around the specific element that you're on when 
+            traversing the matrix. When extracting these kernels, zeros are used when there is no element in that spot. 
+            The Hadamard product (which is a type of matrix operation) is taken, which means the elements of the two kernels are multiplied together. The elements of the resulting kernel
+            are then averaged. This average is then used to replace the specific element of the image matrix.
+            By replace, we actually mean that you should put it in a separate same-sized matrix so you can preserve the values of the 
+            original image matrix, especially as you are continuing to extract kernels and take Hadamard products. 
+        </p>
+        <p>
+          Here, we will walk through a method called Sobel edge detection on a simple image of a flower.
         </p>
       <h4>Original Picture</h4>
         <img src="../static/flower.png"><br/>
       <h4> X convolution </h4>
         <img src="../static/edgesxconv.png"><br/>
-      <p> So, what happened up there is kernel convolution in the x direction with this kernel: </p>
+      <p> So, what happened up there is kernel convolution while traversing the image matrix in the x direction using this kernel: </p>
       <table class="center">
         <tr>
           <td id="cornerupleft"></td>
@@ -84,7 +88,7 @@
           <td id="cornerdownright"></td>
         </tr>
       </table>
-      <p>We used the transpose of the original image matrix to make the process easier. </p>
+      <p>We used the transpose of the original image matrix to make the process easier as we traversed the matrix. </p>
       <h4> Comparison between the two images:</h4>
         <img id="x" src="../static/edgesxconv.png">
         <img id="y" src="../static/edgesyconv.png"><br/>
@@ -93,6 +97,7 @@
         <p> After both convolutions, we took the magnitude of the values from the x and y directions.</p>
         <p> Here is the formula for the magnitude: </p>
         <p> G = &radic;(G<sub>x</sub><sup>2</sup> + G<sub>y</sub><sup>2</sup>)</p>
+        <p> This was then inserted into a matrix, which was then converted into an image, as seen above. </p><br>
 
         <p> There is also a method called the Canny edge detector. This allows us to obtain cleaner edges. This doesn't do much on simple images (like the flower image in our example). </p>
         <h4> Gaussian Blur: </h4>
@@ -125,9 +130,13 @@
         <img src="../static/edges2.png">
         <p> Step two is to perform the Sobel process (as detailed above) on the blurred image. </p>
         <p> Step three involves edge thinning. Find the orientation of the edge at a particular element of the image matrix with this expression: </p>
-        <p>arctan(G<sub>x</sub> / G<sub>y</sub>)</p>
+        <p class="center">arctan(G<sub>x</sub> / G<sub>y</sub>)</p>
         <p> Using this, the element is then compared to its neighboring elements. This is done across the edge and not along it.</p>
-        <p> Hysteresis thresholding is used to find only dominant edges and filter out the weaker ones.</p><br>
+        <p> 
+          Hysteresis thresholding is used to find only dominant edges and filter out the weaker ones. Two threshold values are used to figure out which edges to keep and which edges to discard. 
+          If a value is below the lower threshold, it is discarded. If a value is above the higher threshold, it is kept. If a value is between the two thresholds, then it is kept only if it is 
+          connected to a value that is above the higher threshold.
+        </p><br>
 
         <!--<script src="../static/js/index.js"> </script>-->
         <h4>Here you can upload your own images and see what Sobel edge detection does to it on top of performing a Gaussian blur (WARNING: may take a long time to process and your computer may overheat): </h4>
@@ -142,7 +151,7 @@
         {% endif %}
         <br>
         
-        <h4>Lastly, here are some sources we used. Feel free to watch these videos. They were very informational for us. </h4>
+        <h4>Lastly, here are some videos we used to learn about this. Feel free to watch them. They were very informational for us as we researched edge detection. </h4>
         <a href="https://www.youtube.com/watch?v=C_zFhWdM4ic">How Blurs & Filters Work - Computerphile</a><br>
         <a href="https://www.youtube.com/watch?v=uihBwtPIBxM">Finding the Edges (Sobel Operator) - Computerphile</a><br>
         <a href="https://www.youtube.com/watch?v=sRFM5IEqR2w">Canny Edge Detector - Computerphile</a><br>
