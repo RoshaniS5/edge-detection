@@ -124,18 +124,29 @@
         <h4> After the Sobel process: </h4>
         <img src="../static/edges2.png">
         <p> Step two is to perform the Sobel process (as detailed above) on the blurred image. </p>
-        <p> Step three involves edge thinning. </p>
+        <p> Step three involves edge thinning. Find the orientation of the edge at a particular element of the image matrix with this expression: </p>
+        <p>arctan(G<sub>x</sub> / G<sub>y</sub>)</p>
+        <p> Using this, the element is then compared to its neighboring elements. This is done across the edge and not along it.</p>
+        <p> Hysteresis thresholding is used to find only dominant edges and filter out the weaker ones.</p><br>
 
         <!--<script src="../static/js/index.js"> </script>-->
+        <h4>Here you can upload your own images and see what Sobel edge detection does to it on top of performing a Gaussian blur (WARNING: may take a long time to process and your computer may overheat): </h4>
         <form action="/submit" method="POST" enctype = "multipart/form-data">
             <input type="file" accept="image/*" id="myFile" name="filename">
             <input type="submit" value="Submit">
         </form>
+        <br>
         {% if res == True %}
+        <h4>RESULT:</h4>
         <img src="../static/result.png">
         {% endif %}
-
-
+        <br>
+        
+        <h4>Lastly, here are some sources we used. Feel free to watch these videos. They were very informational for us. </h4>
+        <a href="https://www.youtube.com/watch?v=C_zFhWdM4ic">How Blurs & Filters Work - Computerphile</a><br>
+        <a href="https://www.youtube.com/watch?v=uihBwtPIBxM">Finding the Edges (Sobel Operator) - Computerphile</a><br>
+        <a href="https://www.youtube.com/watch?v=sRFM5IEqR2w">Canny Edge Detector - Computerphile</a><br>
+        <br>
     </body>
     <footer>
         Made by Yuqing Wu and Roshani Shrestha :D

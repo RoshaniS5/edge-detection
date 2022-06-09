@@ -6,7 +6,7 @@ app = Flask(__name__)
 @app.route("/")
 def image():
     # sobel("./static/flower.png", "edges")
-    # gaussianBlur("./static/flower.png")
+    # gaussianBlur("./static/flower.png", "blur")
     # sobel("./static/blur.png", "edges2")
     return render_template('index.html', res=False)
 
@@ -15,8 +15,9 @@ def submit():
     try:
         uploadedfile = request.files['filename']
         print(uploadedfile.filename)
-        uploadedfile.save("input.png")
-        sobel(uploadedfile, "result")
+        # uploadedfile.save("input.png")
+        gaussianBlur(uploadedfile, "fileblur")
+        sobel("./static/fileblur.png", "result")
         return render_template('index.html', res=True)
     except:
         return redirect("/")

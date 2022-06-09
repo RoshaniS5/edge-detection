@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 # plt.show()
 
 # gaussian blur
-def gaussianBlur(image):
+def gaussianBlur(image, save):
     im = Image.open(image).convert('1')
     data = np.asarray(im)
     data2 = data.astype(int)
@@ -46,7 +46,7 @@ def gaussianBlur(image):
 
     im2 = Image.fromarray(data4)
 
-    im2.save("static/blur.png") 
+    im2.save("static/" + save + ".png") 
     return im2
 
 # space for calculations - our own sobel function
