@@ -118,6 +118,3 @@ def sobel(image, save):
     # axs.imshow(im2)
 
     # plt.show()
-
-# def canny(image):
-#     gaussian = [[1, 2, 1], [2, 4, 2], [1, 2, 1]]
